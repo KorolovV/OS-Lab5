@@ -140,6 +140,76 @@ student@CsnKhai:~$
 
 ### 2. Налаштуйте базові параметри SSH для підвищення безпеки з'єднання між клієнтом та сервером (щонайменше 3 параметри).
 
+![alt text](image-4.png)
+
+```
+student@CsnKhai:~$ nano ~/.ssh/authorized_keys
+```
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
+```
+student@CsnKhai:~$ sudo nano /etc/ssh/sshd_config
+```
+
+```
+# Package generated configuration file
+# See the sshd_config(5) manpage for details
+
+# What ports, IPs and protocols we listen for
+Port 22
+```
+
+```
+# Package generated configuration file
+# See the sshd_config(5) manpage for details
+
+# What ports, IPs and protocols we listen for
+Port 1480
+```
+
+```
+student@CsnKhai:~$  sudo service ssh restart
+ssh stop/waiting
+ssh start/running, process 2449
+student@CsnKhai:~$
+```
+
+```
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin without-password
+StrictModes yes
+```
+
+```
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin no
+StrictModes yes
+AllowUsers student
+```
+
+```
+# Change to no to disable tunnelled clear text passwords
+#PasswordAuthentication yes
+```
+
+```
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication no
+```
+
+```
+student@CsnKhai:~$ sudo service ssh restart
+ssh stop/waiting
+ssh start/running, process 4238
+student@CsnKhai:~$
+```
+
+
 ---
 
 ### 3. Перелічіть варіанти вибору ключів шифрування в SSH. Реалізуйте 3 з них (згенеруйте 3 різні типи ключів).
@@ -147,7 +217,7 @@ student@CsnKhai:~$
 Протокол SSH підтримує різні криптографічні алгоритми для генерації пар відкритих і приватних ключів автентифікації. Основними варіантами є:
 - RSA — класичний, найбільш сумісний алгоритм на основі складності факторизації великих чисел (рекомендована довжина від 2048 до 4096 біт).
 - ECDSA — алгоритм цифрового підпису на основі еліптичних кривих, затверджений NIST. Забезпечує високу криптостійкість при меншому розмірі ключа.
-- Ed25519 — сучасний, надзвичайно швидкий і дуже безпечний алгоритм на кривих Едвардса (Curve25519), який є поточним стандартом безпеки.
+- Ed25519 - сучасний, надзвичайно швидкий і дуже безпечний алгоритм на кривих Едвардса (Curve25519), який є поточним стандартом безпеки.
 - DSA — застарілий алгоритм, який сьогодні масово вимкнено в сучасних версіях OpenSSH через вразливості.
 
 Практична реалізація (генерація трьох типів ключів):
