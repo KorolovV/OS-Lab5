@@ -144,6 +144,92 @@ student@CsnKhai:~$
 
 ### 3. Перелічіть варіанти вибору ключів шифрування в SSH. Реалізуйте 3 з них (згенеруйте 3 різні типи ключів).
 
+Протокол SSH підтримує різні криптографічні алгоритми для генерації пар відкритих і приватних ключів автентифікації. Основними варіантами є:
+- RSA — класичний, найбільш сумісний алгоритм на основі складності факторизації великих чисел (рекомендована довжина від 2048 до 4096 біт).
+- ECDSA — алгоритм цифрового підпису на основі еліптичних кривих, затверджений NIST. Забезпечує високу криптостійкість при меншому розмірі ключа.
+- Ed25519 — сучасний, надзвичайно швидкий і дуже безпечний алгоритм на кривих Едвардса (Curve25519), який є поточним стандартом безпеки.
+- DSA — застарілий алгоритм, який сьогодні масово вимкнено в сучасних версіях OpenSSH через вразливості.
+
+Практична реалізація (генерація трьох типів ключів):
+
+1) Генерація ключа RSA (4096 біт):
+
+```
+student@CsnKhai:~$ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_custom
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/student/.ssh/id_rsa_custom.
+Your public key has been saved in /home/student/.ssh/id_rsa_custom.pub.
+The key fingerprint is:
+8c:30:af:ba:0f:11:d0:e4:59:d3:a5:d8:8d:b9:7e:f2 student@CsnKhai
+The key's randomart image is:
++--[ RSA 4096]----+
+|.o. o. ..        |
+| o.o +.=         |
+|  + + = .        |
+|   . + +         |
+|  .   + S        |
+|   . o           |
+|  . . o .        |
+|   o   +         |
+|  oo.   E        |
++-----------------+
+```
+
+2) Генерація ключа ECDSA:
+
+```
+student@CsnKhai:~$ ssh-keygen -t ecdsa -b 521 -f ~/.ssh/id_rsa_ecdsa
+Generating public/private ecdsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/student/.ssh/id_rsa_ecdsa.
+Your public key has been saved in /home/student/.ssh/id_rsa_ecdsa.pub.
+The key fingerprint is:
+08:56:aa:42:e9:87:fc:d8:7f:e2:07:10:13:45:70:2a student@CsnKhai
+The key's randomart image is:
++--[ECDSA  521]---+
+|   o=+.          |
+|  .ooo           |
+| E .*            |
+|+ o+ . .         |
+|.+... . S        |
+| .=  .           |
+| . o  .          |
+|    .. o         |
+|    .o+          |
++-----------------+
+```
+
+3) Генерація ключа Ed25519:
+
+```
+student@CsnKhai:~$ ssh-keygen -t ed25519 -f ~/.ssh/id_rsa_ed25519
+Generating public/private ed25519 key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/student/.ssh/id_rsa_ed25519.
+Your public key has been saved in /home/student/.ssh/id_rsa_ed25519.pub.
+The key fingerprint is:
+fd:f8:97:d6:fa:22:29:81:bb:67:9c:4a:57:e5:89:ca student@CsnKhai
+The key's randomart image is:
++--[ED25519  256--+
+|                 |
+|                 |
+|              .  |
+|         .   + . |
+|        S.. o o  |
+|        ...=     |
+|        .oEo.. o |
+|       ...*.o = .|
+|        o= ..+.+.|
++-----------------+
+student@CsnKhai:~$
+```
+
+Очікуваний результат: Успішно згенеровано три пари унікальних ключів (RSA, ECDSA, Ed25519) з різними криптографічними алгоритмами та виведено їхні відповідні відбитки (fingerprints) та графічні зображення (randomart).
+
 ---
 
 ### 4. Налаштуйте прокидання портів (port forwarding) для SSH-клієнта з хост-машини на гостьову віртуальну машину Linux, яка знаходиться за NAT.
